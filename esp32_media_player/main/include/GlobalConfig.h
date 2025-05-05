@@ -2,7 +2,7 @@
 #define _GLOBAL_CONFIG_H_
 
 //sdcard
-#define SD_CS_PIN               GPIO_NUM_12
+#define SD_CS_PIN               GPIO_NUM_13
 #define SD_CLK_PIN              GPIO_NUM_14
 #define SD_MOSI_PIN             GPIO_NUM_15
 #define SD_MISO_PIN             GPIO_NUM_2
