@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "esp_log.h"
 #include "esp_adc/adc_oneshot.h"
 #include "esp_adc/adc_cali.h"
@@ -19,3 +23,7 @@ extern float BAT_analogVolts;
 
 void BAT_Init(void);
 float BAT_Get_Volts(void);
+
+#ifdef __cplusplus
+}
+#endif

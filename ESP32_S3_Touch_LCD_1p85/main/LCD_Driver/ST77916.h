@@ -1,4 +1,10 @@
 #pragma once
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "esp_err.h"
 #include "esp_log.h"
 #include <stdio.h>
@@ -68,3 +74,8 @@ void LCD_addWindow(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yen
 
 void Backlight_Init(void);                             // Initialize the LCD backlight, which has been called in the LCD_Init function, ignore it                                                         
 void Set_Backlight(uint8_t Light);                   // Call this function to adjust the brightness of the backlight. The value of the parameter Light ranges from 0 to 100
+
+
+#ifdef __cplusplus
+}
+#endif

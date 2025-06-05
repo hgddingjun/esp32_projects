@@ -1,6 +1,10 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <string.h>
 #include <sys/unistd.h>
 #include <sys/stat.h>
@@ -35,3 +39,7 @@ void SD_Init(void);
 void Flash_Searching(void);
 FILE* Open_File(const char *file_path);
 uint16_t Folder_retrieval(const char* directory, const char* fileExtension, char File_Name[][100],uint16_t maxFiles);
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "esp_wifi.h"
@@ -24,3 +28,7 @@ void WIFI_Init(void *arg);
 uint16_t WIFI_Scan(void);
 void BLE_Init(void *arg);
 uint16_t BLE_Scan(void);
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,6 +1,6 @@
 idf_component_register(
                          SRCS 
-                              "./main.c" 
+                              "./main.cpp" 
                               "./EXIO/TCA9554PWR.c"
                               "./Audio_Driver/PCM5101.c" 
                               "./MIC_Driver/MIC_Speech.c" 
@@ -38,3 +38,6 @@ idf_component_register(
                               "./Wireless"
                               "."
                        )
+
+
+target_compile_options(${COMPONENT_LIB} PRIVATE -std=gnu++11)

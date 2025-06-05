@@ -1,4 +1,9 @@
 #pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -23,3 +28,7 @@ void example_lvgl_port_update_callback(lv_disp_drv_t *drv);
 void example_increase_lvgl_tick(void *arg);
 
 void LVGL_Init(void);                     // Call this function to initialize the screen (must be called in the main function) !!!!!
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "esp_log.h" 
 #include "esp_check.h" 
 #include "unity.h" 
@@ -52,3 +56,7 @@ uint32_t Music_Duration(void);
 uint32_t Music_Elapsed(void);
 uint16_t Music_Energy(void);
 void Volume_adjustment(uint8_t Volume);
+
+#ifdef __cplusplus
+}
+#endif

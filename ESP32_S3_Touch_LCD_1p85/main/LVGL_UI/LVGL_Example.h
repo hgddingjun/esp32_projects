@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "lvgl.h"
 #include "demos/lv_demos.h"
 
@@ -17,3 +21,7 @@ void Backlight_adjustment_event_cb(lv_event_t * e);
 
 void Lvgl_Example1(void);
 void LVGL_Backlight_adjustment(uint8_t Backlight);
+
+#ifdef __cplusplus
+}
+#endif

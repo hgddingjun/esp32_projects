@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "esp_afe_sr_iface.h"
 #include "esp_process_sdkconfig.h"
 #include "model_path.h"
@@ -44,4 +48,8 @@ typedef struct {
 } AppSpeech;
 
 void MIC_Speech_init();
+
+#ifdef __cplusplus
+}
+#endif
 

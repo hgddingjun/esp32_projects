@@ -1,4 +1,9 @@
 #pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*********************
  *      INCLUDES
  *********************/
@@ -67,3 +72,7 @@ void LVGL_Resume_Music();
 void LVGL_Pause_Music();  
 void LVGL_Play_Music(uint32_t ID);  
 void LVGL_volume_adjustment(uint8_t Volume);
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "I2C_Driver.h"
 
 //device address
@@ -159,3 +163,7 @@ float getGyroY();
 float getGyroZ();
 void getAccelerometer(void);
 void getGyroscope(void);
+
+#ifdef __cplusplus
+}
+#endif

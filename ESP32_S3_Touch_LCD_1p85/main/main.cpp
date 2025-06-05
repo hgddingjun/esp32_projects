@@ -10,7 +10,7 @@
 #include "PCM5101.h"
 #include "MIC_Speech.h"
 
-void Driver_Loop(void *parameter)
+extern "C" void Driver_Loop(void *parameter)
 {
     Wireless_Init();
     while(1)
@@ -23,7 +23,7 @@ void Driver_Loop(void *parameter)
     }
     vTaskDelete(NULL);
 }
-void Driver_Init(void)
+extern "C" void Driver_Init(void)
 {
     PWR_Init();
     BAT_Init();
@@ -41,7 +41,7 @@ void Driver_Init(void)
         NULL, 
         0);
 }
-void app_main(void)
+extern "C" void app_main(void)
 {
     Driver_Init();
 

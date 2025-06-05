@@ -1,4 +1,9 @@
 #pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ST77916.h"
 
 #define PWR_KEY_Input_PIN   6
@@ -14,3 +19,7 @@ void Restart(void);
 
 void PWR_Init(void);
 void PWR_Loop(void);
+
+#ifdef __cplusplus
+}
+#endif

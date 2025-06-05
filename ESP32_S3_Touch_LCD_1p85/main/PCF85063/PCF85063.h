@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "I2C_Driver.h"
 
 
@@ -100,3 +104,8 @@ void datetime_to_str(char *datetime_str,datetime_t time);
 // 4 - thursday
 // 5 - friday
 // 6 - saturday
+
+
+#ifdef __cplusplus
+}
+#endif
