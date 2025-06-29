@@ -10,6 +10,7 @@
 #include "PCM5101.h"
 #include "MIC_Speech.h"
 
+
 extern "C" void Driver_Loop(void *parameter)
 {
     Wireless_Init();
@@ -33,12 +34,12 @@ extern "C" void Driver_Init(void)
     PCF85063_Init();
     QMI8658_Init();
     xTaskCreatePinnedToCore(
-        Driver_Loop, 
+        Driver_Loop,
         "Other Driver task",
-        4096, 
-        NULL, 
-        3, 
-        NULL, 
+        4096,
+        NULL,
+        3,
+        NULL,
         0);
 }
 extern "C" void app_main(void)
@@ -59,6 +60,8 @@ extern "C" void app_main(void)
     // lv_demo_benchmark();
     // lv_demo_stress();
     // lv_demo_music();
+
+    //lv_example_png_1();
 
     while (1) {
         // raise the task priority of LVGL and/or reduce the handler period can improve the performance
