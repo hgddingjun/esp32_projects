@@ -1,3 +1,5 @@
+set(COMPONENT_REQUIRES lvgl fatfs)
+
 idf_component_register(
                          SRCS
                               "./main.cpp"
@@ -42,6 +44,4 @@ idf_component_register(
                               "./MusicPlayer"
                               "."
                        )
-
-
 target_compile_options(${COMPONENT_LIB} PRIVATE -std=gnu++11)

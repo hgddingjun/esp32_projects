@@ -74,12 +74,12 @@ void Lvgl_Example1(void){
   lv_coord_t tab_h;
   tab_h = 45;
   #if LV_FONT_MONTSERRAT_18
-    font_large     = &lv_font_montserrat_18;
+    font_large     = &lv_font_simsun_16_cjk; //&lv_font_montserrat_18;
   #else
     LV_LOG_WARN("LV_FONT_MONTSERRAT_18 is not enabled for the widgets demo. Using LV_FONT_DEFAULT instead.");
   #endif
   #if LV_FONT_MONTSERRAT_12
-    font_normal    = &lv_font_montserrat_12;
+    font_normal    = &lv_font_simsun_16_cjk; //&lv_font_montserrat_12;
   #else
     LV_LOG_WARN("LV_FONT_MONTSERRAT_12 is not enabled for the widgets demo. Using LV_FONT_DEFAULT instead.");
   #endif

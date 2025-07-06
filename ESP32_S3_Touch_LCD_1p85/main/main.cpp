@@ -13,7 +13,7 @@
 
 extern "C" void Driver_Loop(void *parameter)
 {
-    Wireless_Init();
+    //Wireless_Init();
     while(1)
     {
         QMI8658_Loop();

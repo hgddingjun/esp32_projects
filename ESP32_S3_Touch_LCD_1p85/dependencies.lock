@@ -23,10 +23,16 @@ dependencies:
       path: /home/dingjun/workspace/esp32/esp32_projects/ESP32_S3_Touch_LCD_1p85/components/espressif__esp-sr
       type: local
     version: 1.9.4
+  espressif/freetype:
+    dependencies: []
+    source:
+      path: /home/dingjun/workspace/esp32/esp32_projects/ESP32_S3_Touch_LCD_1p85/components/espressif__freetype
+      type: local
+    version: 2.13.3~1
   idf:
     source:
       type: idf
-    version: 5.2.0
+    version: 5.4.1
   lvgl/lvgl:
     dependencies: []
     source:
@@ -38,8 +44,9 @@ direct_dependencies:
 - chmorgan/esp-libhelix-mp3
 - espressif/esp-dsp
 - espressif/esp-sr
+- espressif/freetype
 - idf
 - lvgl/lvgl
-manifest_hash: bfd712c1bbe40a43339ac7b51b0ebc10ccfcee99cd574ab9e26662d2ddbcf7c8
+manifest_hash: faf38da0752229947ea0f37cdd336b8185925aeb08547cd7b21d3a7bf9562571
 target: esp32s3
 version: 2.0.0
