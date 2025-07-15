@@ -64,6 +64,8 @@ static bool first_Flag = false;
 LV_IMG_DECLARE(img_lv_demo_music_btn_list_play);
 LV_IMG_DECLARE(img_lv_demo_music_btn_list_pause);
 
+extern lv_font_t *getMusicFont(void);
+
 void refresh_screen() {
     lv_obj_t *screen = lv_scr_act();
     lv_obj_invalidate(screen);
@@ -92,7 +94,7 @@ lv_obj_t * _lv_demo_music_main_create(lv_obj_t * parent)
   LVGL_Search_Music();   
   if(ACTIVE_TRACK_CNT) {                                  
     lv_style_init(&music_style);
-    lv_style_set_text_font(&music_style, font_large);
+    lv_style_set_text_font(&music_style, /*font_large*/getMusicFont());
 
     font_small = &lv_font_simsun_16_cjk;//&lv_font_montserrat_12;
     font_large = &lv_font_simsun_16_cjk;//&lv_font_montserrat_16;
@@ -185,10 +187,10 @@ lv_obj_t * create_title_box(lv_obj_t * parent)
   lv_obj_set_flex_align(cont, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);   
 
   title_label = lv_label_create(cont);                                                            
-  lv_obj_set_style_text_font(title_label, font_large, 0);                                                        
+  lv_obj_set_style_text_font(title_label, /*font_large*/getMusicFont(), 0);                                                        
   lv_obj_set_style_text_color(title_label, lv_color_hex(0x504d6d), 0);                            
   lv_label_set_text(title_label, Audio_Name);                                                    
-  lv_obj_set_height(title_label, lv_font_get_line_height(font_large) );                         
+  lv_obj_set_height(title_label, lv_font_get_line_height(/*font_large*/getMusicFont()) );                         
   return cont;
 }
 /************************************************************************************************************************************
@@ -636,7 +638,7 @@ lv_obj_t * create_List_box(lv_obj_t * parent)
   lv_style_set_bg_color(&style_btn_play, lv_color_hex(0xAAD3E0));           
 
   lv_style_init(&style_title);                                              
-  lv_style_set_text_font(&style_title, font_small);                         
+  lv_style_set_text_font(&style_title, /*font_small*/getMusicFont());                         
   lv_style_set_text_color(&style_title, lv_color_hex(0x101010));            
     
   list = lv_obj_create(parent);

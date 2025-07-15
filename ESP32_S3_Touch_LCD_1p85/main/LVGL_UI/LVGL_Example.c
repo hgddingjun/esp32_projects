@@ -1,8 +1,13 @@
 #include "LVGL_Example.h"
 #include "LVGL_Music.h"
 #include <demos/lv_demos.h>
+
+#include <errno.h>
+#include "esp_log.h"
+#include "esp_heap_caps.h"
 // #include <demos/music/lv_demo_music_main.h>
 // #include <demos/music/lv_demo_music_list.h>
+
 
 
 /**********************
@@ -52,27 +57,127 @@ lv_obj_t * Wireless_Scan;
 lv_obj_t * Backlight_slider;
 
 
+/*dingjun add 20250706*/
+//#define FONT_PATH "A:/HONORSansCN-Regular.ttf"
+#define FONT_PATH "A:/GenShinGothic.ttf"
+//#define FONT_PATH "A:/msyh.ttf" //内存不够
+
+
+static lv_fs_file_t fd;
+static uint32_t file_size;
+static void * font_data;
+static uint32_t bytes_read;
+static lv_ft_info_t info;
+static lv_style_t style;
+
+lv_font_t *getMusicFont(void) {
+  return info.font;
+}
+
+void load_font(void) {
+  lv_fs_res_t res;
+  ESP_LOGI("dingjun","%s,%d [1]", __FUNCTION__,__LINE__);
+
+  res = lv_fs_open(&fd, FONT_PATH, LV_FS_MODE_RD);
+  if(res != LV_FS_RES_OK) {
+    ESP_LOGE("dingjun", "Failed to open font file %s, error: %d", FONT_PATH, res);
+    return;
+  }
+
+  lv_fs_seek(&fd, 0, LV_FS_SEEK_END);
+  lv_fs_tell(&fd, &file_size);
+  lv_fs_seek(&fd, 0, LV_FS_SEEK_SET);
+  ESP_LOGI("dingjun","Font file size: %lu bytes", (unsigned long)file_size);
+
+  font_data = heap_caps_malloc(file_size, MALLOC_CAP_8BIT);
+  if(NULL == font_data) {
+    ESP_LOGE("dingjun","Failed to allocate memory for font data!");
+    lv_fs_close(&fd);
+    return;
+  }
+
+
+  res = lv_fs_read(&fd, font_data, file_size, &bytes_read);
+  if(res != LV_FS_RES_OK || bytes_read != file_size) {
+    ESP_LOGE("dingjun", "Failed to read font file %s, error: %d, bytes read: %lu", FONT_PATH, res, (unsigned long)bytes_read);
+    heap_caps_free(font_data);
+    lv_fs_close(&fd);
+    return;
+  }
+
+  ESP_LOGI("dingjun", "font data address: %p, size: %lu bytes, read: %lu bytes.", font_data, (unsigned long)file_size, (unsigned long)bytes_read);
+
+  ESP_LOGI("dingjun", "初始化Freetype...");
+  if(!lv_freetype_init(4,1,0)) {
+    ESP_LOGE("dingjun", "初始化Freetype失败!");
+    heap_caps_free(font_data);
+    lv_fs_close(&fd);
+    return;
+  }
+  ESP_LOGI("dingjun", "结束初始化Freetype...");
+
+  //加载字体
+  info.name = "GenShinGothic";
+  info.mem = font_data;
+  info.mem_size = file_size;
+  info.weight = 12;//10;
+  info.style = FT_FONT_STYLE_NORMAL;
+
+  //字体开始加载
+  ESP_LOGI("dingjun", "字体开始加载...");
+  if(!lv_ft_font_init(&info)) {
+    ESP_LOGE("dingjun", "字体开始加载失败!");
+    heap_caps_free(font_data);
+    lv_fs_close(&fd);
+    return;
+  }
+  ESP_LOGI("dingjun", "字体加载成功...");
+
+  //使用字体创建标签
+  lv_style_init(&style);
+  lv_style_set_text_font(&style, info.font);
+  lv_style_set_text_align(&style, LV_TEXT_ALIGN_CENTER);
+
+  lv_obj_t * label = lv_label_create(lv_scr_act());
+  lv_label_set_text(label, "字符串滚动效果...");
+  lv_obj_add_style(label, &style, 0);
+  lv_obj_set_style_text_color(label, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+
+  heap_caps_free(font_data);
+  lv_fs_close(&fd);
+}
+
 
 void auto_switch(lv_timer_t * t)
 {
   uint16_t page = lv_tabview_get_tab_act(tv);
 
   if (page == 0) { 
-    lv_tabview_set_act(tv, 1, LV_ANIM_ON); 
+    lv_tabview_set_act(tv, 1, LV_ANIM_ON);
   } else if (page == 3) { 
-    lv_tabview_set_act(tv, 2, LV_ANIM_ON); 
+    lv_tabview_set_act(tv, 2, LV_ANIM_ON);
   }
 }
 
 void Lvgl_Example1(void){
 
-  disp_size = DISP_SMALL;                            
+  disp_size = DISP_SMALL;
 
-  font_large = LV_FONT_DEFAULT;                             
-  font_normal = LV_FONT_DEFAULT;                         
+  font_large = LV_FONT_DEFAULT;
+  font_normal = LV_FONT_DEFAULT;
   
   lv_coord_t tab_h;
   tab_h = 45;
+
+  ESP_LOGI("dingjun","%s,%d", __FUNCTION__,__LINE__);
+
+  /*dingjun add for custom font*/
+  load_font();
+
+  ESP_LOGI("dingjun","%s,%d", __FUNCTION__,__LINE__);
+
+
   #if LV_FONT_MONTSERRAT_18
     font_large     = &lv_font_simsun_16_cjk; //&lv_font_montserrat_18;
   #else
@@ -88,11 +193,11 @@ void Lvgl_Example1(void){
   lv_style_set_text_opa(&style_text_muted, LV_OPA_90);
 
   lv_style_init(&style_title);
-  lv_style_set_text_font(&style_title, font_large);
+  lv_style_set_text_font(&style_title, /*font_large*/info.font);
 
   lv_style_init(&style_icon);
   lv_style_set_text_color(&style_icon, lv_theme_get_color_primary(NULL));
-  lv_style_set_text_font(&style_icon, font_large);
+  lv_style_set_text_font(&style_icon, /*font_large*/info.font);
 
   lv_style_init(&style_bullet);
   lv_style_set_border_width(&style_bullet, 0);
@@ -100,7 +205,7 @@ void Lvgl_Example1(void){
 
   tv = lv_tabview_create(lv_scr_act(), LV_DIR_TOP, tab_h);
 
-  lv_obj_set_style_text_font(lv_scr_act(), font_normal, 0);
+  lv_obj_set_style_text_font(lv_scr_act(), /*font_normal*/info.font, 0);
 
   if(disp_size == DISP_LARGE) {
     lv_obj_t * tab_btns = lv_tabview_get_tab_btns(tv);
@@ -127,7 +232,7 @@ void Lvgl_Example1(void){
   lv_obj_t * t3 = lv_tabview_add_tab(tv, "       ");
 
   LV_UNUSED(t0);  
-  LV_UNUSED(t3);  
+  LV_UNUSED(t3);
   Onboard_create(t1);
   Music_create(t2);
   lv_timer_create(auto_switch, 100, NULL);
