@@ -10,6 +10,11 @@
 #include "PCM5101.h"
 #include "MIC_Speech.h"
 
+#include "base_mvc.h"
+#include "home_window.h"
+#include "window_manager.h"
+#include "mp3_window.h"
+
 
 extern "C" void Driver_Loop(void *parameter)
 {
@@ -54,7 +59,8 @@ extern "C" void app_main(void)
     LVGL_Init();   // returns the screen object
 
 // /********************* Demo *********************/
-    Lvgl_Example1();
+    //Lvgl_Example1();
+
     // lv_demo_widgets();
     // lv_demo_keypad_encoder();
     // lv_demo_benchmark();

@@ -42,6 +42,7 @@ idf_component_register(
                               "./PWR_Key"
                               "./Wireless"
                               "./MusicPlayer"
+                              "./WindowMgr/include"
                               "."
                        )
-target_compile_options(${COMPONENT_LIB} PRIVATE -std=gnu++11)
+target_compile_options(${COMPONENT_LIB} PRIVATE -std=gnu++14)
